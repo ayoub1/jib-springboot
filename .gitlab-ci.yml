@@ -3,17 +3,17 @@
 image: gradle:6.6-jdk8
 
 stages:
-  - build
+#  - build
   - package
 
 
-Build App:
-  stage: build
-  script:
-    - gradle build
-  artifacts:
-    paths:
-      - build/libs/*.jar
+#Build App:
+#  stage: build
+#  script:
+#    - gradle build
+#  artifacts:
+#    paths:
+#      - build/libs/*.jar
 
 
 
