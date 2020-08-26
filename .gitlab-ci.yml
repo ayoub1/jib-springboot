@@ -1,6 +1,6 @@
 # Build and package a Java application with Graddle and Jib
 ## 
-image: gradle:alpine
+image: gradle:6.6-jdk8
 
 stages:
   - build
