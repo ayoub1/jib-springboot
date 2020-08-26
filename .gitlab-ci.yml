@@ -1,23 +1,11 @@
-# Build and package a Java application with Gradle and Jib
+# Build a Java application container with Gradle and Jib
 ## 
 image: gradle:6.6-jdk8
 
 stages:
-#  - build
-  - package
-
-
-#Build App:
-#  stage: build
-#  script:
-#    - gradle build
-#  artifacts:
-#    paths:
-#      - build/libs/*.jar
-
-
+  - build
 
 Build Image :
-  stage: package
+  stage: build
   script:
   - gradle jib -Djib.to.image=$CI_REGISTRY_IMAGE:$CI_BUILD_REF -Djib.to.auth.username=$CI_REGISTRY_USER -Djib.to.auth.password=$CI_REGISTRY_PASSWORD
