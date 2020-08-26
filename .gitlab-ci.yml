@@ -1,40 +1,23 @@
 # Build and package a Java application with Graddle and Jib
 ## 
+image: gradle:alpine
 
 stages:
   - build
   - package
 
 
-maven-build:
-  image: maven:3-jdk-8
+Build App:
   stage: build
-  script: "mvn package -B"
+  script:
+    - gradle build
   artifacts:
     paths:
-      - target/*.jar
+      - build/libs/*.jar
 
 
-variables:
-  PUBLIC_IP: "XXX.XXX.XXX.XXX"
-  NODEPORT: "XXXXX"
 
-  KANIKO_VERSION: "debug"
-
-Build App:
+Build Image :
   stage: package
-
-  image: 
-    name: gcr.io/kaniko-project/executor:$KANIKO_VERSION
-    entrypoint: [""]
   script:
-    - mkdir -p /root/.docker
-    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:$CI_BUILD_REF
-    
-    
-
-
-
-
-
+  - gradle jib -Djib.to.image=$CI_REGISTRY_IMAGE:$CI_BUILD_REF -Djib.to.auth.username=$CI_REGISTRY_USER -Djib.to.auth.password=$CI_REGISTRY_PASSWORD
