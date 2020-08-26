@@ -1,4 +1,4 @@
-# Build and package a Java application with Graddle and Jib
+# Build and package a Java application with Gradle and Jib
 ## 
 image: gradle:6.6-jdk8
 
